@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Models\Leave;
 
-class User extends TenantModel
+class User extends Authenticatable
 {
 
     use HasApiTokens, HasFactory, Notifiable;
@@ -38,6 +38,8 @@ class User extends TenantModel
         'about',
         'salary',
         'dob',
+        'otp',
+        'otp_expires_at',
     ];
 
     public function leaves()

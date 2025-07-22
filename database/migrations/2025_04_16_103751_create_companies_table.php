@@ -15,7 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('contact')->nullable();
+            $table->string('address')->nullable();
             $table->string('password');
+
+            $table->date('registration_date')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('website_url')->nullable();
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('package_id')->nullable();
+            $table->unsignedBigInteger('industry_type')->nullable();
             $table->string('database');
             $table->timestamps();
         });

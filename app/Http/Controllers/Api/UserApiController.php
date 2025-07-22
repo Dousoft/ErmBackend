@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\{Validator,Storage,Auth,Config};
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-use App\Models\{Client, User, Leave, Attendance, Performance, Message, AssignedTask, Project, TeamLeader};
+use App\Models\{ User, Leave, Attendance, Performance, Message, AssignedTask, Project, TeamLeader};
 
 class UserApiController extends Controller
 {
@@ -24,7 +24,12 @@ class UserApiController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
+            return response()->json([
+                'message' => 'Validation Failed',
+                'status' => 'failure',
+                'statusCode' => '422',
+                'error' => $validator->errors()
+            ],422);
         }
 
         if ($request->hasFile('photo')) {
@@ -43,7 +48,13 @@ class UserApiController extends Controller
 
         $token = $user->createToken('auth-token')->accessToken;
 
-        return response()->json(['user' => $user, 'access_token' => $token], 201);
+        return response()->json([
+            'message' => 'Superadmin created successfully.',
+            'status' => 'success',
+            'statusCode' => '201',
+            'data' => $user,
+            'access_token' => $token
+        ],201);
     }
 
     // Login API
@@ -64,13 +75,19 @@ class UserApiController extends Controller
             $token = $user->createToken('auth-token')->accessToken;
 
             return response()->json([
-                'message' => 'User Logged In Successfully!',
-                'user' => $user,
+                'message' => 'Superadmin logged in successfully.',
+                'status' => 'success',
+                'statusCode' => '200',
+                'data' => $user,
                 'access_token' => $token
             ], 200);
         }
         else {
-            return response()->json(['message' => 'Invalid Credentials'], 200);
+            return response()->json([
+                'message' => 'Invalid credentials',
+                'status' => 'success',
+                'statusCode' => '200',
+            ], 200);
         }
     }
 
@@ -88,7 +105,12 @@ class UserApiController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
+            return response()->json([
+                'message' => 'Validation Failed',
+                'status' => 'failure',
+                'statusCode' => '422',
+                'error' => $validator->errors(),
+            ], 422);
         }
         \DB::listen(function ($query) {
             logger('DB Query:', [
@@ -107,18 +129,32 @@ class UserApiController extends Controller
             'password' => Hash::make($request->contact),
         ]);
 
-        return response()->json(['message' => 'Employee Added Successfully!', 'user' => $user], 201);
+        return response()->json([
+            'message' => 'Employee added successfully.',
+            'status' => 'success',
+            'statusCode' => '201',
+            'data' => $user
+        ], 201);
     }
 
     //list all employees with role filter
     public function getEmployees(Request $request)
     {
+        Config::set('database.default', 'tenant');
+
         $validator = Validator::make($request->all(), [
             'role' => 'nullable|string',
         ]);
+
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
+            return response()->json([
+                'message' => 'Validation Failed',
+                'status' => 'failure',
+                'statusCode' => '422',
+                'error' => $validator->errors(),
+            ], 422);
         }
+
         $role = $request->input('role');
 
         if ($role) {
@@ -127,25 +163,48 @@ class UserApiController extends Controller
             $employees = User::all();
         }
 
-        return response()->json(['message' => 'Data Retrieved Successfully!', 'employees' => $employees], 200);
+        return response()->json([
+            'message' => 'Employees list retrieved successfully.',
+            'status' => 'success',
+            'statusCode' => '200',
+            'data' => $employees,
+        ], 200);
     }
 
     public function getEmployeeById($id)
     {
+        Config::set('database.default', 'tenant');
+
         $user = User::find($id);
 
         if (!$user) {
-            return response()->json(['error' => 'Employee not found.'], 404);
+            return response()->json([
+                'message' => 'Employee not found',
+                'status' => 'failure',
+                'statusCode' => '404',
+            ], 404);
         }
 
-        return response()->json(['user' => $user], 200);
+        return response()->json([
+            'message' => 'Employee retrieved successfully.',
+            'status' => 'success',
+            'statusCode' => '200',
+            'data' => $user,
+        ], 200);
     }
 
     public function updateEmployee(Request $request, $id)
     {
+        Config::set('database.default', 'tenant');
+
         $user = User::find($id);
+
         if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
+            return response()->json([
+                'message' => 'Employee not found',
+                'status' => 'failure',
+                'statusCode' => '404',
+            ], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -175,83 +234,64 @@ class UserApiController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
+            return response()->json([
+                'message' => 'Validation Failed',
+                'status' => 'failure',
+                'statusCode' => '422',
+                'error' => $validator->errors(),
+            ], 422);
         }
 
-        $user->name = $request->input('name', $user->name);
-        $user->contact = $request->input('contact', $user->contact);
-        $user->role = $request->input('role', $user->role);
-        $user->officialID = $request->input('officialID', $user->officialID);
-        $user->email = $request->input('email', $user->email);
-        $user->address = $request->input('address', $user->address);
-        $user->designation = $request->input('designation', $user->designation);
-        $user->officeLocation = $request->input('officeLocation', $user->officeLocation);
-        $user->department = $request->input('department', $user->department);
-        $user->education = $request->input('education', $user->education);
-        $user->PFNO = $request->input('PFNO', $user->PFNO);
-        $user->ESINO = $request->input('ESINO', $user->ESINO);
-        $user->joiningDate = $request->input('joiningDate', $user->joiningDate);
-        $user->leavingDate = $request->input('leavingDate', $user->leavingDate);
-        $user->jobStatus = $request->input('jobStatus', $user->jobStatus);
-        $user->about = $request->input('about', $user->about);
-        $user->dob = $request->input('dob', $user->dob);
-        $user->salary = $request->input('salary', $user->salary);
+        // Fill user fields
+        $user->fill($request->only([
+            'name', 'contact', 'role', 'officialID', 'email', 'address', 'designation', 'officeLocation',
+            'department', 'education', 'PFNO', 'ESINO', 'joiningDate', 'leavingDate', 'jobStatus', 'about', 'dob', 'salary'
+        ]));
 
-        if ($request->hasFile('photo')) {
-            if ($user->photo) {
-                Storage::disk('public')->delete($user->photo);
+        // Handle file uploads
+        foreach (['photo' => 'images', 'pan' => 'pan', 'aadhar' => 'aadhar', 'passbook' => 'passbook', 'offerLetter' => 'offerLetter'] as $field => $folder) {
+            if ($request->hasFile($field)) {
+                if ($user->$field) {
+                    Storage::disk('public')->delete($user->$field);
+                }
+                $file = $request->file($field);
+                $user->$field = $file->store($folder, 'public');
             }
-            $photo = $request->file('photo');
-            $user->photo = $photo->store('images', 'public');
         }
 
-        if ($request->hasFile('pan')) {
-            if ($user->pan) {
-                Storage::disk('public')->delete($user->pan);
-            }
-            $pan = $request->file('pan');
-            $user->pan = $pan->store('pan', 'public');
-        }
-
-        if ($request->hasFile('aadhar')) {
-            if ($user->aadhar) {
-                Storage::disk('public')->delete($user->aadhar);
-            }
-            $aadhar = $request->file('aadhar');
-            $user->aadhar = $aadhar->store('aadhar', 'public');
-        }
-
-        if ($request->hasFile('passbook')) {
-            if ($user->passbook) {
-                Storage::disk('public')->delete($user->passbook);
-            }
-            $passbook = $request->file('passbook');
-            $user->passbook = $passbook->store('passbook', 'public');
-        }
-
-        if ($request->hasFile('offerLetter')) {
-            if ($user->offerLetter) {
-                Storage::disk('public')->delete($user->offerLetter);
-            }
-            $offerLetter = $request->file('offerLetter');
-            $user->offerLetter = $offerLetter->store('offerLetter', 'public');
-        }
         $user->save();
         $user->makeHidden('password');
-        return response()->json(['message' => 'Employee updated successfully!', 'user' => $user], 200);
+
+        return response()->json([
+            'message' => 'Employee updated successfully.',
+            'status' => 'success',
+            'statusCode' => '200',
+            'data' => $user,
+        ], 200);
     }
 
 
     public function deleteEmployee($id)
     {
+        Config::set('database.default', 'tenant');
+
         $employee = User::find($id);
 
-        if (! $employee) {
-            return response()->json(['error' => 'Employee not found'], 404);
+        if (!$employee) {
+            return response()->json([
+                'message' => 'Employee not found',
+                'status' => 'failure',
+                'statusCode' => '404',
+            ], 404);
         }
+
         $employee->delete();
 
-        return response()->json(['message' => 'Employee deleted successfully!'], 200);
+        return response()->json([
+            'message' => 'Employee deleted successfully.',
+            'status' => 'success',
+            'statusCode' => '200',
+        ], 200);
     }
 
     public function addClient(Request $request)
@@ -957,29 +997,6 @@ class UserApiController extends Controller
 
         return response()->json(['message' => 'Team leader removed successfully from the project'], 200);
     }
-
-
-    // public function listTL(Request $request)
-    // {
-    //     $query = TeamLeader::with(['user', 'project']);
-
-    //     if ($request->has('project_id')) {
-    //         $query->where('project_id', $request->project_id);
-    //     }
-
-    //     $teamLeaders = $query->get();
-    //     $count = $teamLeaders->count();
-
-    //     if ($count === 0) {
-    //         return response()->json(['message' => 'No team leaders found'], 200);
-    //     }
-
-    //     return response()->json([
-    //         'message' => 'Team leaders retrieved successfully',
-    //         'count' => $count,
-    //         'teamLeaders' => $teamLeaders,
-    //     ], 200);
-    // }
 
     public function listTL(Request $request)
     {

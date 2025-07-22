@@ -19,7 +19,12 @@ class CompanyApiController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json([
+                'message' => 'Validation Failed',
+                'status' => 'failure',
+                'statusCode' => '422',
+                'error' => $validator->errors()
+            ],422);
         }
 
         // Generate a unique DB name for the company
@@ -50,7 +55,9 @@ class CompanyApiController extends Controller
 
         return response()->json([
             'message' => 'Company and its database created successfully.',
-            'company' => $company
+            'status' => 'success',
+            'statusCode' => '200',
+            'data' => $company
         ]);
     }
 
@@ -63,7 +70,12 @@ class CompanyApiController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json([
+                'message' => 'Validation Failed',
+                'status' => 'failure',
+                'statusCode' => '422',
+                'error' => $validator->errors()
+            ],422);
         }
 
         //Find the company by email
@@ -71,7 +83,11 @@ class CompanyApiController extends Controller
 
         // check password
         if (!Hash::check($request->password, $company->password)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json([
+                'message' => 'Invalid credentials',
+                'status' => 'success',
+                'statusCode' => '200',
+            ], 200);
         }
 
         // Generate token
@@ -82,8 +98,21 @@ class CompanyApiController extends Controller
             'status' => 'success',
             'statusCode' => '200',
             'token' => $token,
-            'company' => $company,
+            'data' => $company,
         ],200);
+    }
+
+    //list company
+    public function listCompanies()
+    {
+        $companies = Company::all(); // Fetch all companies
+
+        return response()->json([
+            'message' => 'Companies fetched successfully.',
+            'status' => 'success',
+            'statusCode' => "200",
+            'data' => $companies
+        ]);
     }
 
 }

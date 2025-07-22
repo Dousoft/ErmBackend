@@ -38,6 +38,8 @@ return new class extends Migration
             $table->string('about')->nullable();
             $table->string('dob')->nullable();
             $table->string('salary')->nullable();
+            $table->string('otp')->nullable();
+            $table->timestamp('otp_expires_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

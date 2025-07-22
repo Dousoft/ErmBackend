@@ -1,9 +1,11 @@
 <?php
 namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\{PackageController,IndustryController};
 
-use App\Http\Controllers\Controller;
 
 
 Route::post('register-superadmin', [UserApiController::class, 'registerSuperadmin']);
@@ -16,20 +18,22 @@ Route::post('company-login', [CompanyApiController::class, 'companyLogin']);
 //api accessed by only superadmin
 Route::middleware(['auth:api', 'role.check:1'])->group(function () {
     Route::post('/create-company', [CompanyApiController::class, 'createCompany']);
+    Route::post('/list-companies', [CompanyApiController::class, 'listCompanies']);
+    Route::post('/create-package', [PackageController::class, 'storePackage']);
+    Route::post('/create-industry-type', [IndustryController::class, 'storeIndustryType']);
 
 });
 
 //api used by company and for their own DB in tenant.db switch option
 Route::middleware(['auth:company', 'tenant.db'])->group(function () {
+    //employee
     Route::post('add-employee', [UserApiController::class, 'addEmployee']);
+    Route::post('get-employees', [UserApiController::class, 'getEmployees']);
     Route::post('update-employees/{id}', [UserApiController::class, 'updateEmployee']);
     Route::get('/employees/{id}', [UserApiController::class, 'getEmployeeById']);
-    Route::delete('/employees/{id}', [UserApiController::class, 'deleteEmployee']);
-});
+    Route::delete('/delete-employee/{id}', [UserApiController::class, 'deleteEmployee']);
 
-//routes accessed by admin and super-admin only
-Route::middleware(['auth:api', 'role.check:1,2'])->group(function () {
-
+    //
     Route::post('add-client', [UserApiController::class, 'addClient']);
     Route::post('update-clients/{id}', [UserApiController::class, 'updateClient']);
     Route::delete('/clients/{id}', [UserApiController::class, 'deleteClient']);
@@ -57,13 +61,13 @@ Route::middleware(['auth:api', 'role.check:1,2'])->group(function () {
     Route::post('/assign-tl-to-project', [UserApiController::class, 'assignTLtoProject']);
     Route::post('/remove-tl-from-project', [UserApiController::class, 'removeTLFromProject']);
     Route::get('/list-tl', [UserApiController::class, 'listTL']);
-
 });
+
 
 
 //routes accessed by user(4), admin(2) , and super-admin(1) all
 Route::middleware(['auth:api', 'role.check:1,2,4'])->group(function () {
-    Route::post('get-employees', [UserApiController::class, 'getEmployees']);
+
     Route::post('update-profile', [UserApiController::class, 'updateProfile']);
     Route::get('get-clients', [UserApiController::class, 'getClients']);
     Route::get('get-projects', [ProjectApiController::class, 'getProjects']);
