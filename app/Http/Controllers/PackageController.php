@@ -43,4 +43,9 @@ class PackageController extends Controller
         ], 201);
     }
 
+    public function getAllPackages()
+    {
+        return response()->json(Package::select('id', 'package_name')->get());
+    }
+
 }

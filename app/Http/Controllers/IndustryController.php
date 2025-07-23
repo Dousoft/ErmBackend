@@ -33,4 +33,9 @@ class IndustryController extends Controller
             'data' => $industryType,
         ], 201);
     }
+
+    public function getAllIndustryTypes()
+    {
+        return response()->json(IndustryType::select('id', 'name')->get());
+    }
 }

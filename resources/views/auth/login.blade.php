@@ -276,7 +276,7 @@
                     <a href="#" class="text-decoration-none" style="color: var(--primary);">Need help?</a>
                 </div>
 
-                <button type="submit" class="btn btn-login" disabled>
+                <button type="submit" class="btn btn-login">
                     <i class="fas fa-fingerprint me-2"></i> Authenticate
                 </button>
 

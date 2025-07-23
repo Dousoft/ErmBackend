@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\{AuthController};
+use App\Http\Controllers\{AuthController,PackageController,IndustryController};
 
 Route::get('/', function () {
     return view('auth.login');
@@ -16,4 +16,10 @@ Route::post('/otp-login', [AuthController::class, 'loginWithOtp'])->name('supera
 
 // auth
 Route::get('/dashboard', [AuthController::class, 'superadminDashboard'])->name('superadmin.dashboard');
+
 Route::get('/company', [CompanyController::class, 'viewCompanyPage'])->name('superadmin.company.view');
+Route::post('/add-company', [CompanyController::class, 'createCompany'])->name('superadmin.company.store');
+
+Route::get('/packages-list', [PackageController::class, 'getAllPackages'])->name('packages.list');
+Route::get('/industry-type-list', [IndustryController::class, 'getAllIndustryTypes'])->name('industry.type.list');
+
