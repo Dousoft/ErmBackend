@@ -18,8 +18,6 @@ Route::post('company-login', [CompanyApiController::class, 'companyLogin']);
 //api accessed by only superadmin
 Route::middleware(['auth:api', 'role.check:superadmin'])->group(function () {
     Route::post('/create-package', [PackageController::class, 'storePackage']);
-    Route::post('/create-industry-type', [IndustryController::class, 'storeIndustryType']);
-
 });
 
 //api used by company and for their own DB in tenant.db switch option

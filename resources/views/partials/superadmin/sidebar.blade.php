@@ -15,14 +15,28 @@
                 <span class="nav-link-text">Companies</span>
             </a>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-box"></i>
+            <a class="nav-link" href="{{ route('superadmin.industry.types.view') }}">
+                <i class="fas fa-industry"></i>
+                <span class="nav-link-text">Industry Types</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('superadmin.roles.view') }}">
+                <i class="fas fa-user-shield"></i>
+                <span class="nav-link-text">Industry Roles</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('superadmin.roles.view') }}">
+                <i class="fas fa-cubes"></i>
                 <span class="nav-link-text">Packages</span>
             </a>
         </li>
 
-        
         <li class="nav-item">
             <a class="nav-link" href="#">
                 <i class="fas fa-users-cog"></i>

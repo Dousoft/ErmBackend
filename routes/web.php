@@ -22,6 +22,12 @@ Route::prefix('superadmin')->middleware(['auth', 'role.check:superadmin'])->grou
     Route::get('/company', [CompanyController::class, 'viewCompanyPage'])->name('superadmin.company.view');
     Route::get('/dashboard', [AuthController::class, 'superadminDashboard'])->name('superadmin.dashboard');
     Route::post('/add-company', [CompanyController::class, 'createCompany'])->name('superadmin.company.store');
+
+    Route::get('/industry-roles', [IndustryController::class, 'industryRolesViewPage'])->name('superadmin.roles.view');
+    Route::post('/store-industry-roles', [IndustryController::class, 'addIndustryWiseRoles'])->name('superadmin.roles.store');
+
+    Route::get('/industry-types', [IndustryController::class, 'industryTypeViewPage'])->name('superadmin.industry.types.view');
+    Route::post('/store-industry-types', [IndustryController::class, 'storeIndustryType'])->name('superadmin.industry.types.store');
 });
 
 
