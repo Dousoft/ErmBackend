@@ -1,6 +1,6 @@
 <div class="sidebar" id="sidebar">
     <div class="logo" style="background-color: #eee;">
-        <img src="assets/image/logoVertical.png" alt="Logo" width="140px">
+        <img src="{{ asset('assets/superadmin/image/logoVertical.png') }}" alt="Logo" width="140px">
     </div>
     <ul class="nav flex-column">
         <li class="nav-item">
@@ -21,6 +21,8 @@
                 <span class="nav-link-text">Packages</span>
             </a>
         </li>
+
+        
         <li class="nav-item">
             <a class="nav-link" href="#">
                 <i class="fas fa-users-cog"></i>

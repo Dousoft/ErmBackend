@@ -16,9 +16,7 @@ Route::post('/reset-password', [UserApiController::class, 'resetPassword']);
 Route::post('company-login', [CompanyApiController::class, 'companyLogin']);
 
 //api accessed by only superadmin
-Route::middleware(['auth:api', 'role.check:1'])->group(function () {
-    Route::post('/create-company', [CompanyApiController::class, 'createCompany']);
-    Route::post('/list-companies', [CompanyApiController::class, 'listCompanies']);
+Route::middleware(['auth:api', 'role.check:superadmin'])->group(function () {
     Route::post('/create-package', [PackageController::class, 'storePackage']);
     Route::post('/create-industry-type', [IndustryController::class, 'storeIndustryType']);
 

@@ -1,0 +1,1051 @@
+:root {
+    /* Color Variables */
+    --primary-color: #fb2e00;
+    --secondary-color: #3c7139;
+    --project-color: #6c5ce7;
+    --hr-color: #3498db;
+    --pm-color: #9b59b6;
+    --finance-color: #e67e22;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --info-color: #1abc9c;
+    --accent-color: #fb2e00;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f7fa;
+    color: var(--dark-color);
+    overflow-x: hidden;
+}
+
+/* Layout Components */
+.sidebar {
+    background: #fb2e00;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    transition: all 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+
+}
+
+.sidebar.collapsed {
+    width: 70px;
+    overflow: hidden;
+}
+
+.sidebar.collapsed .nav-link-text,
+.sidebar.collapsed .logo h4,
+.sidebar.collapsed .quote {
+    display: none;
+}
+
+.sidebar.collapsed .nav-link {
+    text-align: center;
+    justify-content: center;
+}
+
+.sidebar.collapsed .nav-link i {
+    margin-right: 0;
+}
+
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 5px;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+
+.wrapper {
+  min-height: 100vh;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.main-content.expanded {
+    margin-left: 70px;
+}
+
+.navbar {
+    background-color: #eeeeee;
+    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px; */
+    margin-top: -20px;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card {
+    border-left: 4px solid var(--secondary-color);
+}
+
+.stat-card.warning {
+    border-left-color: var(--warning-color);
+}
+
+.stat-card.success {
+    border-left-color: var(--success-color);
+}
+
+.stat-card.danger {
+    border-left-color: var(--accent-color);
+}
+
+/* Project-specific Styles */
+.project-card {
+    border-left: 4px solid var(--project-color);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(108, 92, 231, 0.1);
+}
+
+.project-badge {
+    background-color: rgba(108, 92, 231, 0.1);
+    color: var(--project-color);
+}
+
+.project-action-btn {
+    background-color: var(--project-color);
+    color: white;
+}
+
+.project-action-btn:hover {
+    background-color: #5649c0;
+    color: white;
+}
+
+.project-tab .nav-link.active {
+    color: var(--project-color);
+    border-bottom: 3px solid var(--project-color);
+}
+
+.project-tab .nav-link {
+    color: var(--dark-color);
+}
+
+.project-status-not-started {
+    color: var(--warning-color);
+}
+
+.project-status-in-progress {
+    color: var(--info-color);
+}
+
+.project-status-completed {
+    color: var(--success-color);
+}
+
+.project-status-on-hold {
+    color: var(--danger-color);
+}
+
+/* HRM-specific Styles */
+.hrm-card {
+    border-left: 4px solid var(--hr-color);
+    transition: all 0.3s ease;
+}
+
+.hrm-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(52, 152, 219, 0.1);
+}
+
+.hrm-badge {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--hr-color);
+}
+
+.hrm-action-btn {
+    background-color: var(--hr-color);
+    color: white;
+}
+
+.hrm-action-btn:hover {
+    background-color: #2980b9;
+    color: white;
+}
+
+.hrm-tab .nav-link.active {
+    color: var(--hr-color);
+    border-bottom: 3px solid var(--hr-color);
+}
+
+.hrm-tab .nav-link {
+    color: var(--dark-color);
+}
+
+.employee-avatar {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--hr-color);
+}
+
+/* Status Indicators */
+.attendance-status-present {
+    color: var(--success-color);
+}
+
+.attendance-status-absent {
+    color: var(--danger-color);
+}
+
+.attendance-status-leave {
+    color: var(--warning-color);
+}
+
+.leave-status-pending {
+    color: var(--warning-color);
+}
+
+.leave-status-approved {
+    color: var(--success-color);
+}
+
+.leave-status-rejected {
+    color: var(--danger-color);
+}
+
+.task-priority-high {
+    color: var(--danger-color);
+}
+
+.task-priority-medium {
+    color: var(--warning-color);
+}
+
+.task-priority-low {
+    color: var(--success-color);
+}
+
+/* UI Components */
+.progress-thin {
+    height: 6px;
+}
+
+.gantt-bar {
+    height: 20px;
+    border-radius: 3px;
+    position: relative;
+    background-color: rgba(108, 92, 231, 0.2);
+}
+
+.gantt-progress {
+    height: 100%;
+    border-radius: 3px;
+    background-color: var(--project-color);
+}
+
+.glass-banner {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Table Styles */
+.table-container {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background-color: var(--project-color);
+    border-radius: 20px;
+}
+
+/* Role-specific Styles */
+.role-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 0 20px;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    color: #6c757d;
+    font-weight: 500;
+    padding: 15px 20px;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--primary-color);
+    background: transparent;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.nav-tabs .nav-link:hover:not(.active) {
+    color: var(--dark-color);
+}
+
+/* Dashboard Headers */
+.dashboard-header {
+    background: linear-gradient(135deg, rgba(251,46,0,0.1) 0%, rgba(255,255,255,0.8) 100%);
+    border-left: 4px solid var(--primary-color);
+}
+
+.hr-dashboard .dashboard-header {
+    background: linear-gradient(135deg, rgba(52,152,219,0.1) 0%, rgba(255,255,255,0.8) 100%);
+    border-left-color: var(--hr-color);
+}
+
+.pm-dashboard .dashboard-header {
+    background: linear-gradient(135deg, rgba(155,89,182,0.1) 0%, rgba(255,255,255,0.8) 100%);
+    border-left-color: var(--pm-color);
+}
+
+.finance-dashboard .dashboard-header {
+    background: linear-gradient(135deg, rgba(230,126,34,0.1) 0%, rgba(255,255,255,0.8) 100%);
+    border-left-color: var(--finance-color);
+}
+
+/* Role-specific Cards */
+.hr-stat-card {
+    border-left: 4px solid var(--hr-color);
+}
+
+.pm-stat-card {
+    border-left: 4px solid var(--pm-color);
+}
+
+.finance-stat-card {
+    border-left: 4px solid var(--finance-color);
+}
+
+.hr-action-card {
+    background: rgba(52, 152, 219, 0.1);
+    border-left: 3px solid var(--hr-color);
+}
+
+.pm-action-card {
+    background: rgba(155, 89, 182, 0.1);
+    border-left: 3px solid var(--pm-color);
+}
+
+.finance-action-card {
+    background: rgba(230, 126, 34, 0.1);
+    border-left: 3px solid var(--finance-color);
+}
+
+/* Activity Feed */
+.recent-activity {
+    list-style: none;
+    padding: 0;
+}
+
+.recent-activity li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+}
+
+.recent-activity li:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--light-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: var(--secondary-color);
+}
+
+.activity-details h6 {
+    margin-bottom: 2px;
+    font-size: 0.9rem;
+}
+
+.activity-details small {
+    color: #777;
+}
+
+/* Logo & Branding */
+.logo {
+    padding: 20px 0px;
+    /* text-align: center; */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+    transition: all 0.3s;
+}
+
+.logo h4 {
+    color: white;
+    font-weight: 700;
+    margin-bottom: 0;
+    transition: all 0.3s;
+}
+
+.quote {
+    font-style: italic;
+    color: #fff;
+    padding: 15px;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+    transition: all 0.3s;
+}
+
+/* Charts */
+.chart-container {
+    position: relative;
+    height: 300px;
+}
+
+/* Badges */
+.badge-soft-primary {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--secondary-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.collapsed {
+        transform: translateX(0);
+        width: 70px;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+        width: 250px;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .main-content.expanded {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-tabs .nav-link {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+
+    .dashboard-banner h1 {
+        font-size: 1.5rem;
+    }
+
+    .dashboard-banner {
+        padding: 1rem !important;
+    }
+}
+
+
+
+
+
+
+/* new */
+/* Add to your CSS file */
+/* Kanban Board Styles */
+.kanban-board {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+}
+
+.kanban-column {
+    flex: 1;
+    min-width: 280px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.kanban-column-header {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px 8px 0 0;
+}
+
+.kanban-column-header h5 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.kanban-column-body {
+    padding: 10px;
+    min-height: 100px;
+    background-color: #f8f9fa;
+}
+
+.kanban-column-footer {
+    padding: 10px 15px;
+    border-top: 1px solid #eee;
+    background-color: white;
+    border-radius: 0 0 8px 8px;
+}
+
+/* Kanban Card Styles */
+.kanban-card {
+    background-color: white;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    cursor: grab;
+    border-left: 3px solid var(--project-color);
+}
+
+.kanban-card:active {
+    cursor: grabbing;
+}
+
+.kanban-card h6 {
+    margin: 0 0 5px 0;
+    font-size: 0.9rem;
+}
+
+.kanban-card p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.kanban-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    font-size: 0.75rem;
+}
+
+/* Project Summary Styles */
+.project-summary-item {
+    margin-bottom: 20px;
+}
+
+.project-summary-item h6 {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.project-summary-item p {
+    margin-bottom: 0;
+}
+
+.project-status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.project-status-badge.on-track {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+}
+
+.project-status-badge.at-risk {
+    background-color: rgba(243, 156, 18, 0.1);
+    color: #f39c12;
+}
+
+.project-status-badge.off-track {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+}
+
+/* Activity Feed Styles */
+.activity-feed {
+    padding: 0;
+    list-style: none;
+}
+
+.activity-item {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.activity-avatar {
+    margin-right: 15px;
+}
+
+.activity-avatar img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-message {
+    margin-bottom: 5px;
+}
+
+.activity-time {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+/* Message Styles */
+.message-list {
+    padding: 0;
+    list-style: none;
+}
+
+.message-preview {
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.message-preview.active {
+    background-color: rgba(108, 92, 231, 0.1);
+}
+
+.message-sender {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.message-sender img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.message-sender h6 {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.message-excerpt p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #6c757d;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message-time {
+    font-size: 0.7rem;
+    color: #adb5bd;
+    text-align: right;
+}
+
+.message-thread {
+    padding: 20px;
+    background-color: #f8f9fa;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 15px;
+    max-width: 70%;
+}
+
+.message.received {
+    margin-right: auto;
+}
+
+.message.sent {
+    margin-left: auto;
+}
+
+.message-content {
+    padding: 10px 15px;
+    border-radius: 18px;
+    position: relative;
+}
+
+.message.received .message-content {
+    background-color: white;
+    border-top-left-radius: 0;
+}
+
+.message.sent .message-content {
+    background-color: var(--project-color);
+    color: white;
+    border-top-right-radius: 0;
+}
+
+.message-time {
+    font-size: 0.75rem;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+.message-composer {
+    background-color: white;
+    padding: 15px;
+}
+
+/* employee page */
+/* Employee Dashboard Specific Styles */
+.employee-stats .stat-card {
+    border-left: 4px solid var(--primary-color);
+}
+
+.employee-stats .stat-card.success {
+    border-left-color: var(--success-color);
+}
+
+.employee-stats .stat-card.warning {
+    border-left-color: var(--warning-color);
+}
+
+.employee-stats .stat-card.info {
+    border-left-color: var(--info-color);
+}
+
+.time-tracking-card {
+    background-color: rgba(251, 46, 0, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-color);
+}
+
+/* Progress Circle for Performance */
+.progress-circle {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.progress-circle-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.progress-circle-bg {
+    fill: none;
+    stroke: #eee;
+    stroke-width: 3;
+}
+
+.progress-circle-fill {
+    fill: none;
+    stroke: var(--primary-color);
+    stroke-width: 3;
+    stroke-linecap: round;
+    animation: progress-fill 1.5s ease-in-out forwards;
+}
+
+.progress-circle-text {
+    font-size: 0.5em;
+    text-anchor: middle;
+    fill: var(--dark-color);
+    font-weight: bold;
+}
+
+@keyframes progress-fill {
+    from {
+        stroke-dasharray: 0, 100;
+    }
+}
+
+/* Task Priority Badges */
+.badge.bg-danger {
+    background-color: var(--danger-color) !important;
+}
+
+.badge.bg-warning {
+    background-color: var(--warning-color) !important;
+}
+
+.badge.bg-success {
+    background-color: var(--success-color) !important;
+}
+
+.badge.bg-secondary {
+    background-color: var(--secondary-color) !important;
+}
+
+.badge.bg-info {
+    background-color: var(--info-color) !important;
+}
+
+/* Table Row Styles */
+.table-danger {
+    background-color: rgba(231, 76, 60, 0.1) !important;
+}
+
+
+/* My Company Page Specific Styles */
+.company-logo-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+.company-logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo-upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor: pointer;
+}
+
+.logo-upload-overlay:hover {
+    opacity: 1;
+}
+
+.logo-upload-overlay i {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.subscription-card {
+    background-color: rgba(251, 46, 0, 0.05);
+    border: 1px solid rgba(251, 46, 0, 0.2);
+    transition: all 0.3s;
+}
+
+.subscription-card:hover {
+    background-color: rgba(251, 46, 0, 0.1);
+    transform: translateY(-3px);
+}
+
+.company-stat-item {
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.company-stat-item:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Table Styles */
+.table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Settings Page Specific Styles */
+.company-logo-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.company-logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.logo-upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.logo-upload-overlay i {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.company-logo-container:hover .logo-upload-overlay {
+    opacity: 1;
+}
+
+/* Settings Tabs */
+.nav-tabs .nav-link {
+    color: #495057;
+    font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-content {
+    background-color: #fff;
+}
+
+/* Settings Cards */
+.settings-card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.settings-card .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+}
+
+/* Form Elements in Settings */
+.form-switch .form-check-input {
+    width: 2.5em;
+    height: 1.5em;
+}
+
+.form-switch .form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .settings-card {
+        margin-bottom: 15px;
+    }
+
+    .nav-tabs .nav-link {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}
+
+
+    .avatar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+    }
+    .avatar-sm { width: 36px; height: 36px; font-size: 0.875rem; }
+    .avatar-lg { width: 48px; height: 48px; font-size: 1.25rem; }
+    .table thead th { font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+    .badge { font-weight: 500; padding: 0.35em 0.65em; }
+    .form-control-plaintext { padding: 0; border: 0; background-color: transparent; }

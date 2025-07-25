@@ -20,13 +20,20 @@
             <div class="dropdown ms-3">
                 <a href="#" class="dropdown-toggle d-flex align-items-center text-dark text-decoration-none"
                    id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="assets/image/avtar.webp" alt="User" class="rounded-circle me-2" width="55px">
+                    <img src="{{ asset('assets/company/image/avtar.webp') }}" alt="User" class="rounded-circle me-2" width="55px">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                     <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
                     <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                    <li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="dropdown-item text-danger">
+                                <i class="fas fa-sign-out-alt me-2"></i> Logout
+                            </button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>

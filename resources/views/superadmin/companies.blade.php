@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.superadmin.app')
 
 @section('title', 'Dousoft | Companies Management')
 
@@ -72,8 +72,8 @@
                                     </td>
                                     <td>
                                         <span
-                                            class="badge {{ $company->status == 'Active' ? 'bg-success' : 'bg-danger' }}">
-                                            {{ ucfirst($company->status) }}
+                                            class="badge {{ $company->company_status == 'Active' ? 'bg-success' : 'bg-danger' }}">
+                                            {{ ucfirst($company->company_status) }}
                                         </span>
                                     </td>
                                     <td>

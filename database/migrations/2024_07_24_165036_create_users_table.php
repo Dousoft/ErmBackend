@@ -9,16 +9,56 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    // public function up(): void
+    // {
+    //     Schema::create('users', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->string('name');
+    //         $table->string('email')->nullable()->unique();
+    //         $table->string('contact')->unique();
+    //         $table->timestamp('email_verified_at')->nullable();
+    //         $table->string('password');
+    //         $table->string('role');
+    //         $table->string('photo')->nullable();
+    //         $table->string('address')->nullable();
+    //         $table->string('officialID')->nullable();
+    //         $table->string('designation')->nullable();
+    //         $table->string('officeLocation')->nullable();
+    //         $table->string('department')->nullable();
+    //         $table->string('education')->nullable();
+    //         $table->string('pan')->nullable();
+    //         $table->string('aadhar')->nullable();
+    //         $table->string('passbook')->nullable();
+    //         $table->string('offerLetter')->nullable();
+    //         $table->string('PFNO')->nullable();
+    //         $table->string('ESINO')->nullable();
+    //         $table->string('joiningDate')->nullable();
+    //         $table->string('leavingDate')->nullable();
+    //         $table->string('jobStatus')->nullable();
+    //         $table->string('about')->nullable();
+    //         $table->string('dob')->nullable();
+    //         $table->string('salary')->nullable();
+    //         $table->string('otp')->nullable();
+    //         $table->timestamp('otp_expires_at')->nullable();
+    //         $table->rememberToken();
+    //         $table->timestamps();
+    //     });
+    // }
+
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+
+            // Common Fields
             $table->string('name');
             $table->string('email')->nullable()->unique();
-            $table->string('contact')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('contact')->nullable()->unique();
             $table->string('password');
-            $table->string('role');
+            $table->string('role'); // 'superadmin', 'employee', 'company'
+
+            // Employee-specific Fields
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('photo')->nullable();
             $table->string('address')->nullable();
             $table->string('officialID')->nullable();
@@ -38,10 +78,25 @@ return new class extends Migration
             $table->string('about')->nullable();
             $table->string('dob')->nullable();
             $table->string('salary')->nullable();
+
+            // OTP support
             $table->string('otp')->nullable();
             $table->timestamp('otp_expires_at')->nullable();
+
+            // Company-specific Fields
+            $table->date('registration_date')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('website_url')->nullable();
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('package_id')->nullable();
+            $table->string('industry_type')->nullable();
+            $table->string('database')->nullable();
+            $table->enum('company_status', ['Active', 'Inactive'])->default('Active')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
+
+            // $table->foreign('package_id')->references('id')->on('packages')->onDelete('set null');
         });
     }
 

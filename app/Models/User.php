@@ -14,13 +14,16 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
+        // Common Fields
         'name',
         'email',
         'contact',
         'password',
         'role',
-        'photo',
         'address',
+
+        // Employee-specific Fields
+        'photo',
         'officialID',
         'designation',
         'officeLocation',
@@ -40,21 +43,39 @@ class User extends Authenticatable
         'dob',
         'otp',
         'otp_expires_at',
+
+        // Company-specific Fields
+        'database',
+        'registration_date',
+        'logo',
+        'website_url',
+        'description',
+        'package_id',
+        'industry_type',
+        'company_status',
     ];
 
-    public function leaves()
+    public function packageDetails()
     {
-        return $this->hasMany(Leave::class);
+        return $this->belongsTo(Package::class,'package_id');
     }
 
-    public function assignedTasks()
-    {
-        return $this->hasMany(AssignedTask::class, 'empId');
-    }
 
-     // A user can be a team leader of multiple projects
-     public function teamLeaderProjects()
-     {
-         return $this->hasMany(TeamLeader::class, 'user_id');
-     }
+
+
+    // public function leaves()
+    // {
+    //     return $this->hasMany(Leave::class);
+    // }
+
+    // public function assignedTasks()
+    // {
+    //     return $this->hasMany(AssignedTask::class, 'empId');
+    // }
+
+    //  // A user can be a team leader of multiple projects
+    //  public function teamLeaderProjects()
+    //  {
+    //      return $this->hasMany(TeamLeader::class, 'user_id');
+    //  }
 }

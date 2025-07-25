@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dousoft')</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('assets/superadmin/image/logo.png') }}">
+
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,7 +16,7 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('assets/superadmin/css/style.css') }}">
     <!-- Include Toastr -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 
@@ -23,12 +26,12 @@
 <body>
     <div class="wrapper">
         <!-- Sidebar -->
-        @include('partials.sidebar')
+        @include('partials.superadmin.sidebar')
 
         <!-- Main Content -->
         <div class="main-content" id="main-content">
             <!-- Top Navbar -->
-            @include('partials.navbar')
+            @include('partials.superadmin.navbar')
 
             <!-- Page Content -->
             <div class="container-fluid py-4">
@@ -36,7 +39,7 @@
             </div>
 
             <!-- Footer (optional) -->
-            @includeIf('partials.footer')
+            @includeIf('partials.superadmin.footer')
         </div>
     </div>
 
@@ -56,7 +59,7 @@
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
     <!--custom script -->
-    <script src="assets/js/script.js"></script>
+    <script src="{{ asset('assets/superadmin/js/script.js') }}"></script>
 
     @stack('scripts')
 </body>

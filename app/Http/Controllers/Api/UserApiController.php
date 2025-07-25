@@ -41,7 +41,7 @@ class UserApiController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 1,//for superadmin login
+            'role' => 'superadmin',
             'contact' => $request->contact,
             'photo' => $photoPath ?? null,
         ]);

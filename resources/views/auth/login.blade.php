@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Solution - SuperAdmin Portal</title>
+    <title>Login Page</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -222,8 +222,8 @@
     <div class="login-container">
         <div class="login-card">
             <div class="logo-container">
-                <img src="assets/image/logo.png" alt="IT Solution Logo" class="logo" width="190px" style="background-color: white;">
-                <h3 class="mb-1">SuperAdmin Portal</h3>
+                <img src="assets/superadmin/image/logo.png" alt="IT Solution Logo" class="logo" width="190px" style="background-color: white;">
+                <h3 class="mb-1">Login Account</h3>
 
             </div>
             <div class="auth-method mb-4 text-center">
@@ -350,7 +350,7 @@
             }
 
             try {
-                const response = await fetch(method === 'password' ? '{{ route("superadmin.login") }}' : '{{ route("superadmin.otp.login") }}', {
+                const response = await fetch(method === 'password' ? '{{ route("login") }}' : '{{ route("otp.login") }}', {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',

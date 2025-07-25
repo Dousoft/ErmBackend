@@ -33,11 +33,19 @@ class AuthController extends Controller
                 ]);
             }
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Superadmin logged in successfully.',
-                'redirect' => route('superadmin.dashboard')
-            ]);
+           if($user->role == 'superadmin'){
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Superadmin logged in successfully.',
+                    'redirect' => route('superadmin.dashboard')
+                ]);
+           } elseif($user->role == 'company'){
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Company logged in successfully.',
+                    'redirect' => route('company.dashboard')
+                ]);
+           }
         }
 
         return response()->json([
@@ -103,11 +111,28 @@ class AuthController extends Controller
         $user->otp_expires_at = null;
         $user->save();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Superadmin logged in successfully.',
-            'redirect' => route('superadmin.dashboard'),
-        ]);
+        if($user->role == 'superadmin'){
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Superadmin logged in successfully.',
+                    'redirect' => route('superadmin.dashboard')
+                ]);
+        } elseif($user->role == 'company'){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Company logged in successfully.',
+                'redirect' => route('company.dashboard')
+            ]);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout(); // Log the user out
+        $request->session()->invalidate(); // Invalidate session
+        $request->session()->regenerateToken(); // Prevent CSRF attack
+
+        return view('auth.login');
     }
 
 }
